@@ -228,14 +228,14 @@ class OssStorage(Storage):
         result = self.bucket.delete_object(name)
 
 class OssMediaStorage(OssStorage):
-    def __init__(self):
+    def __init__(self, **settings):
         self.location = settings.MEDIA_URL
         logger().debug("locatin: %s", self.location)
         super(OssMediaStorage, self).__init__()
 
 
 class OssStaticStorage(OssStorage):
-    def __init__(self):
+    def __init__(self, **settings):
         self.location = settings.STATIC_URL
         logger().info("locatin: %s", self.location)
         super(OssStaticStorage, self).__init__()
