@@ -56,7 +56,7 @@ class OssStorage(Storage):
     Aliyun OSS Storage
     """
 
-    def __init__(self, access_key_id=None, access_key_secret=None, end_point=None, bucket_name=None, expire_time=None,**settings):
+    def __init__(self, access_key_id=None, access_key_secret=None, end_point=None, bucket_name=None, expire_time=None,**kwargs):
         self.access_key_id = access_key_id if access_key_id else _get_config('OSS_ACCESS_KEY_ID')
         self.access_key_secret = access_key_secret if access_key_secret else _get_config('OSS_ACCESS_KEY_SECRET')
         self.end_point = _normalize_endpoint(end_point if end_point else _get_config('OSS_ENDPOINT'))
@@ -228,14 +228,14 @@ class OssStorage(Storage):
         result = self.bucket.delete_object(name)
 
 class OssMediaStorage(OssStorage):
-    def __init__(self, **settings):
+    def __init__(self, **kwargs):
         self.location = settings.MEDIA_URL
         logger().debug("locatin: %s", self.location)
         super(OssMediaStorage, self).__init__()
 
 
 class OssStaticStorage(OssStorage):
-    def __init__(self, **settings):
+    def __init__(self, **kwargs):
         self.location = settings.STATIC_URL
         logger().info("locatin: %s", self.location)
         super(OssStaticStorage, self).__init__()
